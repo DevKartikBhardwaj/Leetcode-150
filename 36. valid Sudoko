@@ -51,3 +51,13 @@ class Solution {
         return true;
     }
 }
+
+
+****************************************************************************
+i think this is the optimal approach as well bcoz it does n^2 iterations and n is 9 which is pretty much small
+
+logic 1 loop check all the rows
+      2 loop check all the cols
+      3 loops check matrix for there validity one by one all three of them
+        It's more fast beause i am using arrays instead of hashset for checking duplicates
+        dp can be changed to something else but that's okay

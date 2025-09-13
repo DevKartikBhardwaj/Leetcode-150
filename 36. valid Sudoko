@@ -1,0 +1,53 @@
+//bruteforce approach
+class Solution {
+    int[] dp = new int[256];
+
+    boolean validateMatrix(int rStart, int rEnd, int cStart, int cEnd,char[][] board) {
+        Arrays.fill(dp, 0);
+        for (int row = rStart; row <= rEnd; row++) {
+            for (int col = cStart; col <= cEnd; col++) {
+                char elem = board[row][col];
+                if(elem=='.')continue;
+                if (dp[elem]==1)
+                    return false;
+                dp[elem] = 1;
+            }
+        }
+        return true;
+    }
+
+    public boolean isValidSudoku(char[][] board) {
+        //check all the rows
+        for (int row = 0; row < 9; row++) {
+            Arrays.fill(dp, 0);
+            for (int col = 0; col < 9; col++) {
+                char elem = board[row][col];
+                if(elem=='.')continue;
+                if (dp[elem]==1)
+                    return false;
+                dp[elem] = 1;
+            }
+        }
+
+        //check for all the cols
+        for (int col = 0; col < 9; col++) {
+            Arrays.fill(dp, 0);
+            for (int row = 0; row < 9; row++) {
+                char elem = board[row][col];
+                if(elem=='.')continue;
+                if (dp[elem]==1)
+                    return false;
+                dp[elem] = 1;
+            }
+        }
+
+        //check al 9 blocks
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 3; i++) {
+                if (!validateMatrix(i * 3, i * 3 + 2, j * 3, j * 3 + 2,board))
+                    return false;
+            }
+        }
+        return true;
+    }
+}

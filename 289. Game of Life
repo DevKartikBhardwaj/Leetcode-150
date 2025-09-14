@@ -1,0 +1,43 @@
+//brute force 
+class Solution {
+    int countLiveNeighbours(int r, int c, int[][] board) {
+        int cnt = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (r + i > -1 && c + j > -1 && r + i < board.length &&
+                        c + j < board[0].length && board[r + i][c + j] == 1) {
+                    if (i == 0 && j == 0)
+                        continue;
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+
+    public void gameOfLife(int[][] board) {
+        int m = board.length, n = board[0].length;
+        int[][] ans = new int[m][n];
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                int cnt = countLiveNeighbours(row, col, board);
+
+                if (board[row][col] == 1 && (cnt == 2 || cnt == 3))
+                    ans[row][col] = 1;
+                if (board[row][col] == 0 && cnt == 3)
+                    ans[row][col] = 1;
+
+                // System.out.print(row + " ");
+                // System.out.print(col + " ");
+                // System.out.print(cnt);
+                // System.out.println();
+
+            }
+        }
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                board[row][col] = ans[row][col];
+            }
+        }
+    }
+}

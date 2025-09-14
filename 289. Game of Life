@@ -41,3 +41,53 @@ class Solution {
         }
     }
 }
+
+
+************************************better approach - o(1) space
+I will represent 1->0 change with -1 and 0->1 change with -2
+if(neighbor= 1 or -1(prevously 1)) than than increase cnt
+after doing than maker -1->0 and -2->1
+
+class Solution {
+    int countLiveNeighbours(int r, int c, int[][] board) {
+        int cnt = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (r + i > -1 && c + j > -1 && r + i < board.length &&
+                        c + j < board[0].length && (board[r + i][c + j] == 1|| board[r + i][c + j] == -1)) {
+                    if (i == 0 && j == 0)
+                        continue;
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+
+    public void gameOfLife(int[][] board) {
+        int m = board.length, n = board[0].length;
+       
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                int cnt = countLiveNeighbours(row, col, board);
+
+                if (board[row][col] == 1 && (cnt < 2 || cnt > 3))
+                    board[row][col] = -1;
+                if (board[row][col] == 0 && cnt == 3)
+                    board[row][col] = -2;
+
+                // System.out.print(row + " ");
+                // System.out.print(col + " ");
+                // System.out.print(cnt);
+                // System.out.println();
+
+            }
+        }
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                if(board[row][col]==-1)board[row][col]=0;
+                if(board[row][col]==-2)board[row][col]=1;
+            }
+        }
+    }
+}

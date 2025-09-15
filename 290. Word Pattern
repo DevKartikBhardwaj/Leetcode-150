@@ -1,0 +1,25 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        char[] patternArray=pattern.toCharArray();
+        String[] sArray=s.split(" ");
+        Map<String,Character>mp=new HashMap<>();
+        int[] hash=new int[256];
+
+        if(patternArray.length!=sArray.length)
+            return false;
+        
+        for(int i=0;i<patternArray.length;i++){
+            String str=sArray[i];
+            char ch=patternArray[i];
+            if(mp.containsKey(str)){
+                if(mp.get(str)!=ch)
+                    return false;
+                continue;
+            }
+            if(hash[ch]==1)return false;
+            mp.put(str,ch);
+            hash[ch]=1;
+        }
+        return true;
+    }
+}

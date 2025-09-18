@@ -1,0 +1,35 @@
+//bruteforce approach 
+if n becomes 1 return true
+if the whole algo reaches 1e6 iterations return false :) although this might be wrong with some edge cases but still it runs well on lc
+
+//better approach
+
+uses set to keep track of loops if a loop arrive that means we never going to reach 1 return false if 1 found than return true
+
+
+//best approach (Totoise haire method)
+
+class Solution {
+    public boolean isHappy(int n) {
+        int slow = square_digits(n);
+        int fast = square_digits(square_digits(n));
+        while (slow != fast) {
+            slow = square_digits(slow);
+            fast = square_digits(square_digits(fast));
+            if (slow == 1 || fast == 1) {
+                return true;
+            }
+        }
+        return slow==1; 
+    }
+
+    public int square_digits(int n) {
+        int square = 0;
+        while (n > 0) {
+            int digit = n % 10;
+            square += digit * digit;  
+            n = n / 10;
+        }
+        return square;
+    }
+}

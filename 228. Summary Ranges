@@ -1,0 +1,34 @@
+class Solution {
+
+    static String buildStr(int nums1,int nums2){
+        if(nums1==nums2)
+            return Integer.toString(nums1);
+        String a=Integer.toString(nums1);
+        String b=Integer.toString(nums2);
+        StringBuilder s=new StringBuilder();
+        s.append(a);
+        s.append("->");
+        s.append(b);
+        String str=s.toString();
+        return str;
+    }
+
+    public List<String> summaryRanges(int[] nums) {
+        List<String> ans = new ArrayList<>();
+        if(nums.length==0)return ans;
+        int i = 0, j = 0;
+        for (; j < nums.length; j++) {
+            if (i == j)
+                continue;
+            if (nums[j] - 1 != nums[j - 1]) {
+                String str=buildStr(nums[i],nums[j-1]);
+                ans.add(str);
+                i = j;
+            }
+        }
+
+        String str=buildStr(nums[i],nums[j-1]);
+        ans.add(str);
+        return ans;
+    }
+}

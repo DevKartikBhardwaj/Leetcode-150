@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character>stk=new Stack<>();
+        Map<Character,Character>mp=new HashMap<>();
+        mp.put(')','(');
+        mp.put(']','[');
+        mp.put('}','{');
+
+        for(char ch:s.toCharArray()){
+            if(ch=='('||ch=='['||ch=='{'){
+                stk.push(ch);
+            }else{
+                if(stk.isEmpty()||stk.peek()!=mp.get(ch))
+                    return false;
+                stk.pop();
+            }
+        }
+        if(stk.isEmpty())return true;
+        return false;
+    }
+}

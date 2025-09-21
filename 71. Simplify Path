@@ -1,0 +1,42 @@
+//this is a piece of shit :)
+class Solution {
+    public String simplifyPath(String path) {
+        
+        
+        String[] pathArray=path.split("/");
+        Stack<String>stk=new Stack<>();
+        List<String>list=new ArrayList<>();
+        StringBuilder stringBuilder=new StringBuilder();
+        
+
+        for(String elem:pathArray){
+            if(elem.equals(".")||elem.equals(""))
+                continue;    
+            if(elem.equals("..")){
+                if(!stk.isEmpty())
+                    stk.pop();
+            }
+            else
+                stk.push(elem);
+        }
+
+        while(!stk.isEmpty()){
+            list.add(stk.pop());
+        }
+
+        Collections.reverse(list);
+
+    
+
+        
+        for(int i=0;i<list.size();i++){
+            String str=list.get(i);
+            stringBuilder.append("/"+str);
+        }
+
+        String ans=stringBuilder.toString();
+        if(ans.length()==0)
+            return "/";
+        return ans;
+    }
+}

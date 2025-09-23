@@ -1,0 +1,39 @@
+//bruteforce - used a hasmap
+
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+    Node ptr=head;
+    Node dummy=new Node(-1),temp=dummy;
+    Map<Node,Node>mp=new HashMap<>();
+    while(ptr!=null){
+        temp.next=new Node(ptr.val);
+        temp=temp.next;
+        mp.put(ptr,temp);
+        ptr=ptr.next;
+    }
+    ptr=head;temp=dummy.next;
+    while(ptr!=null){
+        if(ptr.random!=null){
+            temp.random=mp.get(ptr.random);
+        }
+        ptr=ptr.next;
+        temp=temp.next;
+    }
+       return dummy.next; 
+    }
+}

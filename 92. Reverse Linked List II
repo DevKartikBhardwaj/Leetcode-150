@@ -24,3 +24,48 @@ class Solution {
         return dummy.next;        
     }
 }
+
+
+//I coded this recursive approach although doesn't looks intutive at first but believe me it's :)
+
+class Solution {
+
+    ListNode reverseList(ListNode node,ListNode rightPtr){
+        if(node.next==rightPtr){
+            node.next=null;
+            return node;
+        }
+        ListNode head=reverseList(node.next,rightPtr);
+        node.next.next=node;
+        node=null;
+        return head;
+    }
+
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode temp=head,leftPtr=null,rightPtr=null;
+        //traversing this linked list
+        while(temp!=null){
+            if(right==0)
+                rightPtr=temp;
+            
+            if(left-2==0)
+                leftPtr=temp;
+
+            left--;
+            right--;
+            temp=temp.next;
+        }
+
+        if(leftPtr==null){
+            temp=reverseList(head,rightPtr);
+            head.next=rightPtr;
+            return temp;
+        }
+
+        temp=reverseList(leftPtr.next,rightPtr);
+        leftPtr.next.next=rightPtr;
+        // temp.next=leftPtr;
+        leftPtr.next=temp;
+        return head;
+    }
+}

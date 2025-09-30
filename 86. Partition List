@@ -1,0 +1,21 @@
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode dummy1=new ListNode(),ptr1=dummy1;
+        ListNode dummy2=new ListNode(),ptr2=dummy2;
+        ListNode ptr=head;
+        while(ptr!=null){
+            if(ptr.val<x){
+                ptr1.next=ptr;
+                ptr1=ptr;
+                
+            }else{
+                ptr2.next=ptr;
+                ptr2=ptr;
+            }
+            ptr=ptr.next;
+        }
+        ptr1.next=dummy2.next;
+        ptr2.next=null;
+        return dummy1.next;
+    }
+}
